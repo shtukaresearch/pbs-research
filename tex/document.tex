@@ -50,6 +50,12 @@ The milestones of our original proposal were:
 
 \end{enumerate}
 
+The main content of this report is a muxer-builder incentive model which incorporates rebates and PBS bids as costs to the builder.
+%
+Rather than cases of monoplistic or oligopolistic builders exercising market power to inflate fees, our scenario analysis focused more on cases where exclusive forwarding strategies are feasible.
+%
+We found the latter cases both of more immediate concern and more accessible to our model than the former.
+
 \subsection*{Key findings}
 
 Our model predicts that PBS markets are dominated by builders with persistent edge, regardless of auction structure or profitability, and that the key sources of edge are OFS with high-value bundles and relatively high risk tolerance who may choose an exclusive forwarding strategy for its higher expected returns.
@@ -575,14 +581,18 @@ Which quantities from this model can be measured?
 
 \end{enumerate}
 
+\begin{comment}
 \subsection*{Limitations}
 
 \begin{itemize}
   \item The model does not take into account the possibility of multiple hop forwarding.
 \end{itemize}
+\end{comment}
 
 
-\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \section*{Pathways to impact}
 
 How can we leverage this model to influence how the Ethereum community builds?
@@ -591,28 +601,32 @@ We couch the discussion in terms of what we believe to be three core concerns: \
 
 \subsection*{Prior work}
 
+To understand where to go from here, we first review the state of the art.
+%
+The studies that have been done are largely empirical in nature.
+%
 \begin{itemize}
-\item 
-  In \cite{gupta2023centralizing}, a statistical model is used to find a relationship between price volatility, used as a proxy for CEX/DEX arbitrage opportunities, and dominance of so-called `HFT builders.'
-  %
-  Other OFS sources or features and alternative builder strategies are not considered.
-  %
-  Our model quantifies Remark 1 of \emph{op. cit}.
+  \item 
+    In \cite{oz2024whoa} the authors perform extensive labelling of OFS, present visualisations on the breakdown of builder gross revenue, and computes Spearman correlations between profit margin and various OFS features.
+    %
+    The paper provides no opinion on methods to reduce the pivotal nature of exclusive as opposed to shared private orderflow.
+      
+  \item 
+    In \cite{gupta2023centralizing}, a statistical model is used to find a relationship between price volatility, used as a proxy for CEX/DEX arbitrage opportunities, and dominance of so-called `HFT builders.'
+    %
+    Other OFS sources or features and alternative builder strategies are not considered.
+    %
+    Our model quantifies Remark 1 of \emph{op. cit}.
 
-\item
-  The article \cite{titan2023builder} uses a private dataset to illustrate the prevalence of multiplexing among searchers.
+  \item
+    The article \cite{titan2023builder}, authored by what is today one of the major block builders, uses a private dataset to illustrate the prevalence of multiplexing among searchers.
 
-\item 
-  The authors of \cite{oz2024whoa} perform extensive labelling of OFS, present visualisations on the breakdown of builder gross revenue, and computes Spearman correlations between profit margin and various OFS features.
-  %
-  The paper provides no opinion on methods to reduce the pivotal nature of exclusive as opposed to shared private orderflow.
-  
-\item
-  \cite{yang2024decentralization} identifies the concept of pivotal flow.
-  %
-  The approach is combinatorial, focusing on identifying OFS whose inclusion or exclusion decides the game outcome, rather than quantitative.
-  
-  The proposed solution involves a centralised entity running a TEE, which is rather unsatisfactory from the perspective of resilience or censorship-resistance.
+  \item
+    \cite{yang2024decentralization} identifies the concept of pivotal flow.
+    %
+    The approach is combinatorial, focusing on identifying OFS whose inclusion or exclusion decides the game outcome, rather than quantitative.
+    
+    However, the authors' proposed solution involves a centralised entity running a TEE, which is rather unsatisfactory from the perspective of resilience or censorship-resistance.
   
 \end{itemize}
 
@@ -645,9 +659,9 @@ However, there is much more we could be doing via a combination of theory, publi
       %
        with a model-based approach by identifying strategies that are not currently being explored or exist under counterfactual scenarios;
 
-      In-depth study entry strategies and complementarity (muxer-builder, searcher-builder). 
+      In-depth study of entry strategies and complementarity (muxer-builder, searcher-builder). 
     \item 
-      Identify common factors of the components that drive builder market share ranking \cite{oz2024whoa}, for example the relation to volatility \cite{gupta2023centralizing}.
+      Identify common factors of the components that drive builder market share ranking, for example the relation to volatility to labelled OFS features.
       %
       Investigate the extent to which these factors drive builder \emph{net} revenue.
     \item 
@@ -745,13 +759,13 @@ How can the system deliver reliable service without breaching centralisation lim
 \begin{itemize}
 \item $\Muxers$ — muxer population
 \item $\Builders$ — builder population
-\item $i\in\Muxers$ — principal forwarder (optimiser)
-\item $\Builders^\circ$ — non-principal builders
+\item $\Builders^\circ$ — builders excluding the subject $b$
 \item $\tilde{W}_t \stackrel{\$}{\in} \Builders$ — PBS auction winner 
 \item $\beta$ — PBS auction bid
-\item $\Mempool^\mathrm{pub}$ — public mempool
-\item $\Mempool_i$ — private mempool of muxer $i$.
+\item $\Mempool_i$ — private mempool of muxer or builder $i$
 \item $\sigma$ — proportion of item fee to be refunded; $1/100$ times the value passed to \code{refundPercent} in the builder API.
+\item $\tau$ --- transaction item
+\item $f(\tau)$ --- value (fee) attached to item $\tau$
 \end{itemize} 
 
 \printbibliography
